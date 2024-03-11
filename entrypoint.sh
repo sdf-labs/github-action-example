@@ -63,8 +63,11 @@ fi
 
 # run and save outputs
 echo "running command: $input_command"
+$input_command
 log=$($input_command 2>&1)
+echo "EXIT_STATUS_1=$?"
 exit_status=$?
+echo "EXIT_STATUS_2=$exit_status"
 check_exit_status $exit_status "$log"
 
 echo "$log"
