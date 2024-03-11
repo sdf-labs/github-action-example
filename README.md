@@ -1,4 +1,4 @@
-# github-action-example
+# SDF GitHub Action Example
 
 This repository contains an SDF workspace with a functional GitHub action that runs `sdf compile` on PR creation and updates. The action is defined in `.github/workflows/sdf.yml`. The action is triggered by the `pull_request` event.
 
