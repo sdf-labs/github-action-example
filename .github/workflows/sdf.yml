@@ -1,0 +1,30 @@
+name: On Pull Request Run Compile
+
+on:
+    push:
+        branches:
+        - main
+    pull_request:
+
+jobs:
+    dbt_init_challenge_job:
+        runs-on: ubuntu-latest
+        name: Run sdf compile
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v4
+          - name: sdf compile step
+            uses: ./ # Uses an action in the root directory
+            id: sdf
+            with:
+                command: 'sdf compile'
+                workspace_dir: '.'
+
+          # Use the output from the `sdf` step
+          - name: Display the sdf output
+            if: always()
+            run: |
+                echo "### SDF Run Logs 🪵" >> $GITHUB_STEP_SUMMARY
+                echo '```' >>$GITHUB_STEP_SUMMARY
+                echo "${{ steps.sdf.outputs.log }}" >>$GITHUB_STEP_SUMMARY
+                echo '```' >>$GITHUB_STEP_SUMMARY

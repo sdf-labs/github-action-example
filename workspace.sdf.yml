@@ -1,0 +1,26 @@
+workspace:
+  name: hello     # The name of this workspace -- required
+  edition: "1.1"  # The edition of this workspace -- required
+  description: >
+    This workspace mocks a Snowflake environment of users, organizations, and invoices and demonstrates code contracts & reports in action. 
+
+    Try `sdf compile`, `sdf test`, and `sdf report` to see the magic happen
+  dialect: snowflake # The dialect of SQL used in this workspace, defaults to "presto"
+  includes:
+    - path: classification
+    - path: contracts
+      type: code-contract
+      dialect: presto
+      default-catalog: sdf
+      default-schema: contracts
+    - path: reports
+      type: code-report
+      dialect: presto
+      default-catalog: sdf
+      default-schema: reports
+    - path: src   # The path to sql sources for this workspace -- at least one path is required
+      default-catalog: transformations
+      index: schema-table-name
+    - path: ddls # The path to ddl sources for this workspace -- at least one path is required
+      index: catalog-schema-table-name
+    
