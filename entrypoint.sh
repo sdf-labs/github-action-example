@@ -10,7 +10,9 @@ check_exit_status() {
     exit_status=$1
     command_log=$2
     echo "checking exit status: $exit_status"
+    echo "COMMAND_LOG_3000=$command_log"
     if [ $exit_status -ne 0 ]; then
+        echo "$command_log"
         # Log the error message to GitHub output
         {
             echo 'log<<EOF'
@@ -65,6 +67,7 @@ log=$($input_command 2>&1)
 exit_status=$?
 check_exit_status $exit_status "$log"
 
+echo "$log"
 {
     echo 'log<<EOF'
     echo "$log"
