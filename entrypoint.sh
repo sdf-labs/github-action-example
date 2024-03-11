@@ -1,12 +1,10 @@
 #!/bin/bash -l
 
-source /.venv/bin/activate
+input_command=$1
+input_is_dbt=$2
 
 echo "workspace dir set as: \"${WORKSPACE_DIR}\""
 cd ${WORKSPACE_DIR}
-
-input_command=$1
-input_is_dbt=$2
 
 check_exit_status() {
     exit_status=$1
@@ -35,6 +33,8 @@ fi
 
 if [[ -n $input_is_dbt ]]; then
     echo "::group::Setting up dbt"
+    source /.venv/bin/activate
+    
     echo "running dbt deps"
     dbt deps
     check_exit_status $? ""
